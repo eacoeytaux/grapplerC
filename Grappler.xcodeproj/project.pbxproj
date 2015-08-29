@@ -7,7 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0C224C571B8A317A0078019B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C224C561B8A317A0078019B /* main.cpp */; };
+		0C224C5E1B8A31950078019B /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C224C5D1B8A31950078019B /* SDL2.framework */; };
+		0C224C601B8A319E0078019B /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C224C5F1B8A319E0078019B /* SDL2_image.framework */; };
+		0C224CCD1B8A32540078019B /* AbsLevel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C224CA21B8A32540078019B /* AbsLevel.cpp */; };
+		0C224CCF1B8A32540078019B /* Animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C224CA61B8A32540078019B /* Animation.cpp */; };
+		0C224CD11B8A32540078019B /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C224CAA1B8A32540078019B /* Camera.cpp */; };
+		0C224CD31B8A32540078019B /* Image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C224CB11B8A32540078019B /* Image.cpp */; };
+		0C224CD41B8A32540078019B /* Line.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C224CB31B8A32540078019B /* Line.cpp */; };
+		0C224CD51B8A32540078019B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C224CB61B8A32540078019B /* main.cpp */; };
+		0C224CD61B8A32540078019B /* Map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C224CB71B8A32540078019B /* Map.cpp */; };
+		0C224CD71B8A32540078019B /* MapEdge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C224CB91B8A32540078019B /* MapEdge.cpp */; };
+		0C224CD91B8A32540078019B /* MapVertex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C224CBE1B8A32540078019B /* MapVertex.cpp */; };
+		0C224CDA1B8A32540078019B /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C224CC11B8A32540078019B /* Player.cpp */; };
+		0C224CDB1B8A32540078019B /* Rope.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C224CC31B8A32540078019B /* Rope.cpp */; };
+		0C224CDD1B8A32540078019B /* SpriteSheet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C224CC81B8A32540078019B /* SpriteSheet.cpp */; };
+		0C224CDE1B8A32540078019B /* Vector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C224CCA1B8A32540078019B /* Vector.cpp */; };
+		0C224CE21B8A49AF0078019B /* Circle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C224CE01B8A49AF0078019B /* Circle.cpp */; };
+		0C224CE41B8A8BB90078019B /* MapElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C224CE31B8A8BB90078019B /* MapElement.cpp */; };
+		0CF409ED1B917CB500683542 /* Arc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CF409EB1B917CB400683542 /* Arc.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,7 +41,45 @@
 
 /* Begin PBXFileReference section */
 		0C224C531B8A317A0078019B /* Grappler */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Grappler; sourceTree = BUILT_PRODUCTS_DIR; };
-		0C224C561B8A317A0078019B /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		0C224C5D1B8A31950078019B /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../../../../../Library/Frameworks/SDL2.framework; sourceTree = "<group>"; };
+		0C224C5F1B8A319E0078019B /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../../../../../Library/Frameworks/SDL2_image.framework; sourceTree = "<group>"; };
+		0C224CA21B8A32540078019B /* AbsLevel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AbsLevel.cpp; sourceTree = "<group>"; };
+		0C224CA31B8A32540078019B /* AbsLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbsLevel.h; sourceTree = "<group>"; };
+		0C224CA61B8A32540078019B /* Animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Animation.cpp; sourceTree = "<group>"; };
+		0C224CA71B8A32540078019B /* Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Animation.h; sourceTree = "<group>"; };
+		0C224CAA1B8A32540078019B /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
+		0C224CAB1B8A32540078019B /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
+		0C224CAC1B8A32540078019B /* Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Color.h; sourceTree = "<group>"; };
+		0C224CAD1B8A32540078019B /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		0C224CAE1B8A32540078019B /* Coordinate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Coordinate.h; sourceTree = "<group>"; };
+		0C224CB11B8A32540078019B /* Image.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Image.cpp; sourceTree = "<group>"; };
+		0C224CB21B8A32540078019B /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
+		0C224CB31B8A32540078019B /* Line.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Line.cpp; sourceTree = "<group>"; };
+		0C224CB41B8A32540078019B /* Line.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Line.h; sourceTree = "<group>"; };
+		0C224CB51B8A32540078019B /* LinkedList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinkedList.h; sourceTree = "<group>"; };
+		0C224CB61B8A32540078019B /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		0C224CB71B8A32540078019B /* Map.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Map.cpp; sourceTree = "<group>"; };
+		0C224CB81B8A32540078019B /* Map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Map.h; sourceTree = "<group>"; };
+		0C224CB91B8A32540078019B /* MapEdge.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MapEdge.cpp; sourceTree = "<group>"; };
+		0C224CBA1B8A32540078019B /* MapEdge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapEdge.h; sourceTree = "<group>"; };
+		0C224CBB1B8A32540078019B /* MapElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapElement.h; sourceTree = "<group>"; };
+		0C224CBE1B8A32540078019B /* MapVertex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MapVertex.cpp; sourceTree = "<group>"; };
+		0C224CBF1B8A32540078019B /* MapVertex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapVertex.h; sourceTree = "<group>"; };
+		0C224CC01B8A32540078019B /* Path.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Path.h; sourceTree = "<group>"; };
+		0C224CC11B8A32540078019B /* Player.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Player.cpp; sourceTree = "<group>"; };
+		0C224CC21B8A32540078019B /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
+		0C224CC31B8A32540078019B /* Rope.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Rope.cpp; sourceTree = "<group>"; };
+		0C224CC41B8A32540078019B /* Rope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rope.h; sourceTree = "<group>"; };
+		0C224CC81B8A32540078019B /* SpriteSheet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpriteSheet.cpp; sourceTree = "<group>"; };
+		0C224CC91B8A32540078019B /* SpriteSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpriteSheet.h; sourceTree = "<group>"; };
+		0C224CCA1B8A32540078019B /* Vector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vector.cpp; sourceTree = "<group>"; };
+		0C224CCB1B8A32540078019B /* Vector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vector.h; sourceTree = "<group>"; };
+		0C224CDF1B8A47D20078019B /* SortedCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SortedCollection.h; sourceTree = "<group>"; };
+		0C224CE01B8A49AF0078019B /* Circle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Circle.cpp; sourceTree = "<group>"; };
+		0C224CE11B8A49AF0078019B /* Circle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Circle.h; sourceTree = "<group>"; };
+		0C224CE31B8A8BB90078019B /* MapElement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MapElement.cpp; sourceTree = "<group>"; };
+		0CF409EB1B917CB400683542 /* Arc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Arc.cpp; sourceTree = "<group>"; };
+		0CF409EC1B917CB400683542 /* Arc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Arc.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +87,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C224C601B8A319E0078019B /* SDL2_image.framework in Frameworks */,
+				0C224C5E1B8A31950078019B /* SDL2.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -41,6 +98,8 @@
 		0C224C4A1B8A317A0078019B = {
 			isa = PBXGroup;
 			children = (
+				0C224C5F1B8A319E0078019B /* SDL2_image.framework */,
+				0C224C5D1B8A31950078019B /* SDL2.framework */,
 				0C224C551B8A317A0078019B /* Grappler */,
 				0C224C541B8A317A0078019B /* Products */,
 			);
@@ -57,7 +116,43 @@
 		0C224C551B8A317A0078019B /* Grappler */ = {
 			isa = PBXGroup;
 			children = (
-				0C224C561B8A317A0078019B /* main.cpp */,
+				0C224CB61B8A32540078019B /* main.cpp */,
+				0C224CAD1B8A32540078019B /* Constants.h */,
+				0C224CA21B8A32540078019B /* AbsLevel.cpp */,
+				0C224CA31B8A32540078019B /* AbsLevel.h */,
+				0C224CA61B8A32540078019B /* Animation.cpp */,
+				0C224CA71B8A32540078019B /* Animation.h */,
+				0CF409EB1B917CB400683542 /* Arc.cpp */,
+				0CF409EC1B917CB400683542 /* Arc.h */,
+				0C224CAA1B8A32540078019B /* Camera.cpp */,
+				0C224CAB1B8A32540078019B /* Camera.h */,
+				0C224CE01B8A49AF0078019B /* Circle.cpp */,
+				0C224CE11B8A49AF0078019B /* Circle.h */,
+				0C224CAC1B8A32540078019B /* Color.h */,
+				0C224CAE1B8A32540078019B /* Coordinate.h */,
+				0C224CB11B8A32540078019B /* Image.cpp */,
+				0C224CB21B8A32540078019B /* Image.h */,
+				0C224CB31B8A32540078019B /* Line.cpp */,
+				0C224CB41B8A32540078019B /* Line.h */,
+				0C224CB51B8A32540078019B /* LinkedList.h */,
+				0C224CB71B8A32540078019B /* Map.cpp */,
+				0C224CB81B8A32540078019B /* Map.h */,
+				0C224CB91B8A32540078019B /* MapEdge.cpp */,
+				0C224CBA1B8A32540078019B /* MapEdge.h */,
+				0C224CE31B8A8BB90078019B /* MapElement.cpp */,
+				0C224CBB1B8A32540078019B /* MapElement.h */,
+				0C224CBE1B8A32540078019B /* MapVertex.cpp */,
+				0C224CBF1B8A32540078019B /* MapVertex.h */,
+				0C224CC01B8A32540078019B /* Path.h */,
+				0C224CC11B8A32540078019B /* Player.cpp */,
+				0C224CC21B8A32540078019B /* Player.h */,
+				0C224CC31B8A32540078019B /* Rope.cpp */,
+				0C224CC41B8A32540078019B /* Rope.h */,
+				0C224CDF1B8A47D20078019B /* SortedCollection.h */,
+				0C224CC81B8A32540078019B /* SpriteSheet.cpp */,
+				0C224CC91B8A32540078019B /* SpriteSheet.h */,
+				0C224CCA1B8A32540078019B /* Vector.cpp */,
+				0C224CCB1B8A32540078019B /* Vector.h */,
 			);
 			path = Grappler;
 			sourceTree = "<group>";
@@ -118,7 +213,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C224C571B8A317A0078019B /* main.cpp in Sources */,
+				0C224CD41B8A32540078019B /* Line.cpp in Sources */,
+				0C224CD91B8A32540078019B /* MapVertex.cpp in Sources */,
+				0C224CDE1B8A32540078019B /* Vector.cpp in Sources */,
+				0C224CE21B8A49AF0078019B /* Circle.cpp in Sources */,
+				0C224CCF1B8A32540078019B /* Animation.cpp in Sources */,
+				0C224CDD1B8A32540078019B /* SpriteSheet.cpp in Sources */,
+				0C224CD61B8A32540078019B /* Map.cpp in Sources */,
+				0C224CE41B8A8BB90078019B /* MapElement.cpp in Sources */,
+				0C224CD11B8A32540078019B /* Camera.cpp in Sources */,
+				0C224CD31B8A32540078019B /* Image.cpp in Sources */,
+				0C224CD51B8A32540078019B /* main.cpp in Sources */,
+				0C224CCD1B8A32540078019B /* AbsLevel.cpp in Sources */,
+				0C224CD71B8A32540078019B /* MapEdge.cpp in Sources */,
+				0C224CDA1B8A32540078019B /* Player.cpp in Sources */,
+				0CF409ED1B917CB500683542 /* Arc.cpp in Sources */,
+				0C224CDB1B8A32540078019B /* Rope.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -205,6 +315,10 @@
 		0C224C5B1B8A317A0078019B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -212,6 +326,10 @@
 		0C224C5C1B8A317A0078019B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -235,6 +353,7 @@
 				0C224C5C1B8A317A0078019B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
