@@ -23,6 +23,7 @@ public:
     
     Coordinate getCenter() const;
     double getRadius() const;
+    double getCircumference() const;
     
     bool inCircle(double x, double y) const;
     bool inCircle(Coordinate coor) const;

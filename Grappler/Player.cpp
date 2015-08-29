@@ -153,8 +153,6 @@ bool Player::update(AbsLevel * level) {
         force += Vector(0, jumpSpeed);
     jumping = false;
     
-    printf("force dx: %f, dy: %f\n", force.getDx(), force.getDy());
-    
     //if (element != nullptr)
         //printf(force.subtractAngle(element->getNormalForceAngle()) ? "true\n" : "false\n");
     
@@ -176,8 +174,6 @@ bool Player::update(AbsLevel * level) {
     while (angle < -M_PI)
         angle += M_PI;
     
-    printf("final force dx: %f, dy: %f\n\n", (force + nextForce).getDx(), (force + nextForce).getDy());
-    
     //vel.setDx(vel.getDx() * constants::frictionNorm);
     //vel.setDy(vel.getDy() * (hitbox.touchesFloor() ? constants::frictionNorm : constants::airResistance));
     
@@ -189,8 +185,8 @@ void Player::draw(Camera * camera) {
     
     double sinAngle = sin(angle) * trueRadius;
     double cosAngle = cos(angle) * trueRadius;
-    camera->drawLine(center - Vector(cosAngle, sinAngle), center + Vector(cosAngle, sinAngle));
-    camera->drawLine(center - Vector(-sinAngle, cosAngle), center + Vector(-sinAngle, cosAngle));
+    //camera->drawLine(center - Vector(cosAngle, sinAngle), center + Vector(cosAngle, sinAngle));
+    //camera->drawLine(center - Vector(-sinAngle, cosAngle), center + Vector(-sinAngle, cosAngle));
     //camera->drawLine(center - Vector(sinAngle, cosAngle), center + Vector(sinAngle, cosAngle));
     
     vel.draw(camera, constants::yellow, 5);

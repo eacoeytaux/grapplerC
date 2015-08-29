@@ -25,6 +25,10 @@ double Circle::getRadius() const {
     return radius;
 }
 
+double Circle::getCircumference() const {
+    return radius * M_PI * 2;
+}
+
 bool Circle::inCircle(double x, double y) const {
     return (constants::findDistance(center.getX(), center.getY(), x, y) <= radius);
 }
@@ -64,19 +68,27 @@ bool Circle::doesIntersect(Line line, Coordinate * intersectionCoor1, Coordinate
     Coordinate closestCoor = line.closestCoordinate(center, true);
     double distanceFromCenter = constants::findDistance(center, closestCoor);
     
-    if ((distanceFromCenter > radius) || (inCircle(line.getCoor1()) && inCircle(line.getCoor2())))
+    Coordinate coor1(0, 0), coor2(0, 0);
+    
+    if ((distanceFromCenter > radius) || (inCircle(line.getCoor1()) && inCircle(line.getCoor2()))) {
         return false;
-    
-    double triangleAngle = acos(distanceFromCenter / radius);
-    double closestCoorAngle = constants::findAngle(center, closestCoor);
-    
-    //TODO there should be a more efficient way to do this, this way just required less thought...
-    
-    double angle1 = closestCoorAngle + triangleAngle;
-    Coordinate coor1 = center + Vector(cos(angle1) * radius, sin(angle1) * radius);
-    
-    double angle2 = closestCoorAngle - triangleAngle;
-    Coordinate coor2 = center + Vector(cos(angle2) * radius, sin(angle2) * radius);
+    } else if (distanceFromCenter < 0.0001) {
+        double angle = line.getAngle();
+        
+        coor1 = center + Vector(cos(angle) * radius, sin(angle) * radius);
+        coor2 = center - Vector(cos(angle) * radius, sin(angle) * radius);
+    } else {
+        double triangleAngle = acos(distanceFromCenter / radius);
+        double closestCoorAngle = constants::findAngle(center, closestCoor);
+        
+        //TODO there should be a more efficient way to do this, this way just required less thought...
+        
+        double angle1 = closestCoorAngle + triangleAngle;
+        coor1 = center + Vector(cos(angle1) * radius, sin(angle1) * radius);
+        
+        double angle2 = closestCoorAngle - triangleAngle;
+        coor2 = center + Vector(cos(angle2) * radius, sin(angle2) * radius);
+    }
     
     bool coor1InLine = line.inLine(coor1);
     bool coor2InLine = line.inLine(coor2);

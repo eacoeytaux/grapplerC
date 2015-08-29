@@ -109,9 +109,23 @@ void Camera::drawCircle(int x, int y, float radius, const Color * color) {
 }
 
 void Camera::drawArc(Arc arc, const Color * color) {
-    drawCircle(arc.getCircle(), color);
-    drawLine(Line(arc.getCircle().getCenter(), arc.getStart()), color);
-    drawLine(Line(arc.getCircle().getCenter(), arc.getEnd()), color);
+    bool negative = (arc.getArcRadians() < 0);
+    
+    int percision = (int)((float)CIRCLE_PERCISION * (arc.getArcRadians() / (M_PI * 2)));
+    if (percision < 2)
+        percision = 2;
+    
+    double startAngle = arc.getStartAngle();
+    Coordinate lastCoor = arc.getStart();
+    for (int i = 1; i < percision; i++) {
+        Coordinate nextCoor = arc.getCircle().getCenter() + Vector(arc.getCircle().getRadius() * (cos(startAngle + (((M_PI * 2) * ((float)(i / (float)(CIRCLE_PERCISION - 1))))) * (negative ? -1 : 1))), arc.getCircle().getRadius() * (sin(startAngle + (((M_PI * 2) * ((float)(i / (float)(CIRCLE_PERCISION - 1)))) * (negative ? -1 : 1)))));
+        drawLine(lastCoor, nextCoor, color);
+        lastCoor = nextCoor;
+    }
+    
+    //drawCircle(arc.getCircle(), color);
+    //drawLine(Line(arc.getCircle().getCenter(), arc.getStart()), color);
+    //drawLine(Line(arc.getCircle().getCenter(), arc.getEnd()), color);
 }
 
 void Camera::drawImage(const Image * image, Coordinate coor, double angle, bool flipHorizontal, bool flipVertical) {

@@ -78,11 +78,13 @@ bool Vector::getOrigin(Coordinate * coor) const {
     }
 }
 
+void Vector::setOrigin(Coordinate * coor) {
+    origin = coor;
+}
+
 bool Vector::getDestination(Coordinate * coor) const {
     if (origin != nullptr) {
-        Coordinate destination = *origin;
-        destination.moveXY(dx, dy);
-        *coor = destination;
+        *coor = *origin + *this;
         return true;
     } else {
         return false;

@@ -28,6 +28,7 @@ public:
     void setDxDy(double dx, double dy);
     void setDxDy(Vector vec);
     bool getOrigin(Coordinate * coor) const;
+    void setOrigin(Coordinate * coor);
     bool getDestination(Coordinate * coor) const;
     bool setDestination(Coordinate destination);
     double getMagnitude() const;

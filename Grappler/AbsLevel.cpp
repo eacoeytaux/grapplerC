@@ -11,6 +11,7 @@
 #include "Camera.h"
 #include "Line.h"
 #include "Circle.h"
+#include "Arc.h"
 #include "MapVertex.h"
 #include "MapEdge.h"
 
@@ -47,22 +48,6 @@ void AbsLevel::draw(Camera * camera) {
     
     //Line(lowerBound, 0, lowerBound, 640).draw(camera, constants::white.changeAlpha(127));
     //Line(upperBound, 0, upperBound, 640).draw(camera, constants::white.changeAlpha(127));
-    
-    Arc arc(Circle(Coordinate(200, 200), 50), -1.05, 3.9);
-    camera->drawArc(arc, constants::yellow);
-    
-    Coordinate intersection(0, 0);
-    Coordinate intersection2(0, 0);
-    
-    Line line(150, 290, 275, 160);
-    
-    camera->drawLine(line, constants::magenta);
-    
-    if (arc.doesIntersect(line, &intersection, &intersection2)) {
-        camera->drawRectangle(intersection, 3, 3, constants::white);
-        camera->drawRectangle(intersection2, 3, 3, constants::cyan);
-        printf("x: %f, y: %f\n", intersection.getX(), intersection.getY());
-    }
 }
 
 //const Map * AbsLevel::getMap() {
@@ -74,11 +59,15 @@ void AbsLevel::draw(Camera * camera) {
 //}
 
 void AbsLevel::generatePath(Player * player) {
+    const Rope * rope = player->getRope();
+    bool taught = rope->isTaught();
+    
     Path path(player->getCenter());
     
     //Hitbox hitbox = object->hitbox;
     Coordinate center = player->getCenter();
     Vector vel = player->getVelocity();
+    vel.setOrigin(&center);
     MapElement * element = player->getElement();
     
     float percentage = 1.f;
@@ -90,19 +79,32 @@ void AbsLevel::generatePath(Player * player) {
         }
         
         if (player->isGrappling()) {
-            const Rope * rope = player->getRope();
             
-            if (rope->isTaught()) {
-                vel.subtractAngle(constants::findAngle(rope->getOrigin(), rope->getRoot()));
+            if (taught) {
+                if (vel.subtractAngle(constants::findAngle(rope->getOrigin(), rope->getRoot()))) {
                 
-                Coordinate velDestination(0, 0);
+                Coordinate velOrigin(0, 0);
+                vel.getOrigin(&velOrigin);
+                
+                Arc arc(Circle(rope->getRoot(), rope->getLength()), constants::findAngle(rope->getRoot(), velOrigin), (vel.getMagnitude() / rope->getLength()) * ((constants::findAngleDifference(atan2(vel.getDy(), vel.getDx()), constants::findAngle(rope->getRoot(), rope->getOrigin())) > 0) ? -1 : 1));
+                    
+                vel.setDestination(arc.getEnd());
+                
+                /*Coordinate velDestination(0, 0);
                 if (vel.getDestination(&velDestination)) {
-                    Line line(rope->getRoot(), velDestination);
-                    Circle circle(rope->getRoot(), rope->getLength());
+                    this->line = Line(rope->getRoot(), velDestination);
+                    this->circle = Circle(rope->getRoot(), rope->getLength());
                     
                     Coordinate intersection(0, 0);
                     if (circle.doesIntersect(line, &intersection)) {
-                        //vel.setDestination(intersection);
+                        
+                        printf("distance: %f\n", constants::findDistance(circle.getCenter(), intersection));
+                        this->coor = intersection;
+                        vel.getOrigin(&(this->coor2));
+                        if (!vel.setDestination(intersection))
+                            printf("WARNING\n");
+                        
+                        this->vec = vel;
                     }
                     //if (circle)
                     
@@ -113,7 +115,8 @@ void AbsLevel::generatePath(Player * player) {
                     
                     //Vector ropeAdjustment(cos(angle) * distance, sin(angle) * distance);
                     //vel += ropeAdjustment;
-                }
+                }*/
+            }
             }
         }
         
@@ -139,6 +142,24 @@ void AbsLevel::generatePath(Player * player) {
         
         double distance = INFINITY;
         
+        bool setTaught = taught;
+        
+        if (player->isGrappling() && !taught) {
+            Coordinate collision = center;
+            Line adjustedVelLine = adjustedVel.toLine(center);
+            
+            if (Circle(rope->getRoot(), rope->getLength()).doesIntersect(adjustedVelLine, &collision)) {
+                Vector collisionVel(center, collision);
+                if (collisionVel.getMagnitude() < distance) {
+                    tempCenter = collision;
+                    tempVel = collisionVel;
+                    
+                    distance = collisionVel.getMagnitude();
+                    setTaught = true;
+                }
+            }
+        }
+        
         //check all vertices for collision
         for (SortedCollection<MapVertex>::Node * traversalNode = map.vertices.getNodeByValue(lowerBound - Player::trueRadius); (traversalNode != NULL) ? (traversalNode->value <= upperBound + Player::trueRadius) : false; traversalNode = traversalNode->next) {
             MapVertex * vertex = traversalNode->element;
@@ -155,6 +176,7 @@ void AbsLevel::generatePath(Player * player) {
                         tempElement = (MapElement*)vertex;
                         
                         distance = collisionVel.getMagnitude();
+                        setTaught = taught;
                     }
                 }
             }/* else {
@@ -196,6 +218,7 @@ void AbsLevel::generatePath(Player * player) {
                         tempElement = (MapElement*)edge;
                         
                         distance = collisionVel.getMagnitude();
+                        setTaught = taught;
                     }
                 }
             } else {
@@ -207,6 +230,7 @@ void AbsLevel::generatePath(Player * player) {
                         tempElement = (MapElement*)edge->getVertexCW();
                         
                         distance = collisionVel.getMagnitude();
+                        setTaught = taught;
                     }
                 } else if (edge->getCatchCCW().doesIntersect(adjustedVelLine, &collision)) {
                     Vector collisionVel(center, collision);
@@ -216,6 +240,7 @@ void AbsLevel::generatePath(Player * player) {
                         tempElement = (MapElement*)edge->getVertexCCW();
                         
                         distance = collisionVel.getMagnitude();
+                        setTaught = taught;
                     }
                 }
             }
@@ -246,6 +271,7 @@ void AbsLevel::generatePath(Player * player) {
         center = tempCenter;
         //vel = tempVel; //TODO is this required? cause it creates an error...
         element = tempElement;
+        taught = setTaught;
         
         path.addVector(tempVel);
     }

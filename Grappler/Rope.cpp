@@ -121,7 +121,7 @@ bool Rope::calculateParabola(double * a, double * b, double * c, Coordinate coor
 }
 
 bool Rope::calculateParabola(double * a, double * b, double * c, double x1, double y1, double x2, double y2, double length) {
-    if (constants::findDistance(x1, y1, x2, y2) > length) {
+    if (constants::findDistance(x1, y1, x2, y2) > (length - 0.0001)) {
         //printf("Rope Warning: distance between coordinates is greater than length of rope\n");
         
         //set a, b, c to straight line
