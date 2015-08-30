@@ -13,7 +13,7 @@
 
 class Arc {
 public:
-    Arc(Circle circle, double angle, double arcRadians);
+    Arc(Circle circle, double startAngle, double arcRadians);
     virtual ~Arc();
     
     Circle getCircle() const;
@@ -31,8 +31,6 @@ public:
     bool doesIntersect(Line line, Coordinate * intersectionCoor1 = nullptr, Coordinate * intersectionCoor2 = nullptr) const;
     //bool doesIntersect(Circle circle, Coordinate * intersectionCoor1, Coordinate * intersectionCoor2) const;
     //bool doesIntersect(Arc otherArc, Coordinate * intersectionCoor1, Coordinate * intersectionCoor2) const;
-    
-    //double
     
 private:
     Circle circle;

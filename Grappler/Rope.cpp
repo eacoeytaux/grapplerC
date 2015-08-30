@@ -9,7 +9,10 @@
 #include "Rope.h"
 
 #include "Camera.h"
+#include "Circle.h"
 #include "Player.h"
+
+#include "Arc.h" //TODO remove
 
 const double Rope::k = 1;
 
@@ -49,18 +52,18 @@ void Rope::updateParabola() {
 }
 
 void Rope::update() {
-    if (taught) {
-        double distance = constants::findDistance(*origin, *root);
-        double angle = constants::findAngle(*origin, *root);
+    if (taught) { //TODO add something?
+        //double distance = constants::findDistance(*origin, *root);
+        //double angle = constants::findAngle(*origin, *root);
         
-        taughtPoint = *root + (Vector(cos(angle) * length, sin(angle) * length) * -1);
+        //taughtPoint = *root + (Vector(cos(angle) * length, sin(angle) * length) * -1);
         
         //double FcMagnitude = pow(parent->vel.getMagnitude(), 2) / length;
         //Vector Fc = Vector(cos(angle) * FcMagnitude, sin(angle) * FcMagnitude);
         
         //Vector Tg(cos(angle) * constants::gravity.getMagnitude(), sin(angle) * constants::gravity.getMagnitude());
         
-        tension = Vector(*origin, taughtPoint);//parent->force * -1;// - constants::gravity);
+        //tension = Vector(*origin, taughtPoint);//parent->force * -1;// - constants::gravity);
         //tension.subtractAngle(angle + M_PI_2);
         //tension *= -(distance - length) * k;
         
@@ -80,9 +83,11 @@ void Rope::draw(Camera * camera, const Color * color) const {
     drawParabola(camera);
     
     if (taught) {
-        camera->drawRectangle(taughtPoint, 3, 3, constants::white);
+        //camera->drawRectangle(taughtPoint, 3, 3, constants::white);
         //tension.draw(*origin, camera, constants::white);
     }
+    
+    camera->drawCircle(Circle(*root, length), constants::white->changeAlpha(64));
 }
 
 void Rope::drawParabola(Camera * camera, const Color * color) const {

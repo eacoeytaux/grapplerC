@@ -12,7 +12,7 @@
 
 #include "Constants.h"
 
-Arc::Arc(Circle circle, double angle, double arcRadians) : circle(circle), startAngle(angle), endAngle(angle + arcRadians), arcRadians(arcRadians), arcLength(arcRadians * circle.getRadius()), start(circle.getCenter() + Vector(cos(angle) * circle.getRadius(), sin(angle) * circle.getRadius())), end(circle.getCenter() + Vector(cos(angle + arcRadians) * circle.getRadius(), sin(angle + arcRadians) * circle.getRadius())) { }
+Arc::Arc(Circle circle, double startAngle, double arcRadians) : circle(circle), startAngle(startAngle), endAngle(startAngle + arcRadians), arcRadians(arcRadians), arcLength(arcRadians * circle.getRadius()), start(circle.getCenter() + Vector(cos(startAngle) * circle.getRadius(), sin(startAngle) * circle.getRadius())), end(circle.getCenter() + Vector(cos(startAngle + arcRadians) * circle.getRadius(), sin(startAngle + arcRadians) * circle.getRadius())) { }
 
 Arc::~Arc() { }
 
@@ -35,9 +35,9 @@ double Arc::getStartAngle() const {
 double Arc::getEndAngle() const {
     double endAngle = this->endAngle;
     
-    if (endAngle > M_PI)
+    while (endAngle > M_PI)
         endAngle -= (M_PI * 2);
-    if (endAngle < -M_PI)
+    while (endAngle < -M_PI)
         endAngle += (M_PI * 2);
     
     return endAngle;

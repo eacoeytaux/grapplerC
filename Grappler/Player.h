@@ -46,7 +46,7 @@ public:
     
     MapElement * getMapElement();
     void setMapElement(MapElement * element);
-    bool touchesElement(MapElement * element);
+    bool touchesElement(MapElement * element) const;
     
     bool update(AbsLevel * level);
     void draw(Camera * camera);

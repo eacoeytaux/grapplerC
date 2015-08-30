@@ -50,7 +50,7 @@ private:
     
     Vector tension = Vector(0, 0);
     bool taught = false;
-    mutable Coordinate taughtPoint;
+    mutable Coordinate taughtPoint; //TODO this may not be accurate
     
     double a = 0, b = 0, c = 0;
 };

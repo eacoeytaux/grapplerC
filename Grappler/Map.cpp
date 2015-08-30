@@ -26,22 +26,22 @@ Map::~Map() { }
 void Map::loadElements() {
     MapVertex * v0 = createVertex(100, 0);
     MapVertex * v1 = createVertex(10, 300);
-    MapVertex * v2 = createVertex(150, 420);
+    MapVertex * v2 = createVertex(175, 420);
     //MapVertex * v3 = createVertex(250, 420);
     MapVertex * v4 = createVertex(400, 350);
     MapVertex * v5 = createVertex(450, 375);
-    //MapVertex * v6 = createVertex(500, 350);
-    //MapVertex * v7 = createVertex(800, 400);
-    //MapVertex * v8 = createVertex(750, 0);
+    MapVertex * v6 = createVertex(500, 350);
+    MapVertex * v7 = createVertex(800, 400);
+    MapVertex * v8 = createVertex(750, 0);
     
     createEdge(v1, v0, false, false, 1);
     createEdge(v2, v1, true, 2);
     //createEdge(v3, v2, true, 2);
     createEdge(v4, v2, true, 2);
     createEdge(v5, v4, true, 2);
-    //createEdge(v6, v5, true, 2);
-    //createEdge(v7, v6, true, 2);
-    //createEdge(v8, v7, false, false, 1);
+    createEdge(v6, v5, true, 2);
+    createEdge(v7, v6, true, 2);
+    createEdge(v8, v7, false, false, 1);
 }
 
 void Map::update(Coordinate mouseCoor) {

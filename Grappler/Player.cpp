@@ -85,7 +85,7 @@ void Player::setMapElement(MapElement * element) {
     this->element = element;
 }
 
-bool Player::touchesElement(MapElement * element) {
+bool Player::touchesElement(MapElement * element) const {
     return (this->element == element);
 }
 
@@ -185,8 +185,8 @@ void Player::draw(Camera * camera) {
     
     double sinAngle = sin(angle) * trueRadius;
     double cosAngle = cos(angle) * trueRadius;
-    //camera->drawLine(center - Vector(cosAngle, sinAngle), center + Vector(cosAngle, sinAngle));
-    //camera->drawLine(center - Vector(-sinAngle, cosAngle), center + Vector(-sinAngle, cosAngle));
+    camera->drawLine(center - Vector(cosAngle, sinAngle), center + Vector(cosAngle, sinAngle));
+    camera->drawLine(center - Vector(-sinAngle, cosAngle), center + Vector(-sinAngle, cosAngle));
     //camera->drawLine(center - Vector(sinAngle, cosAngle), center + Vector(sinAngle, cosAngle));
     
     vel.draw(camera, constants::yellow, 5);

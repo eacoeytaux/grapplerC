@@ -109,16 +109,22 @@ void Camera::drawCircle(int x, int y, float radius, const Color * color) {
 }
 
 void Camera::drawArc(Arc arc, const Color * color) {
-    bool negative = (arc.getArcRadians() < 0);
+    //int percision = ceil(CIRCLE_PERCISION * (arc.getArcRadians() / (M_PI * 2)));
+    //while (percision < 100)
+        //++percision *= 2;
     
-    int percision = (int)((float)CIRCLE_PERCISION * (arc.getArcRadians() / (M_PI * 2)));
-    if (percision < 2)
-        percision = 2;
+    int percision = ceil(arc.getArcLength() / 4) + 1;
     
     double startAngle = arc.getStartAngle();
+    double dRadians = arc.getArcRadians() / percision;
+    if (arc.getArcRadians() < 0)
+        dRadians *= -1;
+    double radius = arc.getCircle().getRadius();
+    
     Coordinate lastCoor = arc.getStart();
     for (int i = 1; i < percision; i++) {
-        Coordinate nextCoor = arc.getCircle().getCenter() + Vector(arc.getCircle().getRadius() * (cos(startAngle + (((M_PI * 2) * ((float)(i / (float)(CIRCLE_PERCISION - 1))))) * (negative ? -1 : 1))), arc.getCircle().getRadius() * (sin(startAngle + (((M_PI * 2) * ((float)(i / (float)(CIRCLE_PERCISION - 1)))) * (negative ? -1 : 1)))));
+        double angle = startAngle + (i * dRadians);
+        Coordinate nextCoor = arc.getCircle().getCenter() + Vector(cos(angle) * radius, sin(angle) * radius);
         drawLine(lastCoor, nextCoor, color);
         lastCoor = nextCoor;
     }
