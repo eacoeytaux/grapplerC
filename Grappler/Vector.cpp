@@ -39,7 +39,7 @@ double Vector::getDx() const {
 void Vector::setDx(double dx) {
     this->dx = dx;
     dxPositive = dx > 0;
-    magnitudeSet = false;
+    magnitudeSet = angleSet = false;
 }
 
 double Vector::getDy() const {
@@ -49,7 +49,7 @@ double Vector::getDy() const {
 void Vector::setDy(double dy) {
     this->dy = dy;
     dyPositive = dy > 0;
-    magnitudeSet = false;
+    magnitudeSet = angleSet = false;
 }
 
 bool Vector::isDxPositive() {
@@ -69,26 +69,16 @@ void Vector::setDxDy(Vector vec) {
     setDxDy(vec.getDx(), vec.getDy());
 }
 
-bool Vector::getOrigin(Coordinate * coor) const {
-    if (origin != nullptr) {
-        *coor = *origin;
-        return true;
-    } else {
-        return false;
-    }
+Coordinate Vector::getOrigin() const {
+    return *origin;
 }
 
 void Vector::setOrigin(Coordinate * coor) {
     origin = coor;
 }
 
-bool Vector::getDestination(Coordinate * coor) const {
-    if (origin != nullptr) {
-        *coor = *origin + *this;
-        return true;
-    } else {
-        return false;
-    }
+Coordinate Vector::getDestination() const {
+    return *origin + *this;
 }
 
 bool Vector::setDestination(Coordinate destination) {
@@ -109,7 +99,15 @@ double Vector::getMagnitude() const {
     return magnitude;
 }
 
-void Vector::setAngle(double angle) {
+double Vector::getAngle() const {
+    if (!angleSet) {
+        angle = atan2(dy, dx);
+        angleSet = true;
+    }
+    return angle;
+}
+
+void Vector::rotateToAngle(double angle) {
     double magnitude = getMagnitude();
     setDx(cos(angle) * magnitude);
     setDy(sin(angle) * magnitude);
@@ -118,7 +116,7 @@ void Vector::setAngle(double angle) {
 }
 
 void Vector::rotate(double angle) {
-    setAngle(atan2(dy, dx) + angle);
+    rotateToAngle(getAngle() + angle);
 }
 
 void Vector::flip() {

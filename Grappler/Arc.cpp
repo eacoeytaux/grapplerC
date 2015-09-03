@@ -12,7 +12,7 @@
 
 #include "Constants.h"
 
-Arc::Arc(Circle circle, double startAngle, double arcRadians) : circle(circle), startAngle(startAngle), endAngle(startAngle + arcRadians), arcRadians(arcRadians), arcLength(arcRadians * circle.getRadius()), start(circle.getCenter() + Vector(cos(startAngle) * circle.getRadius(), sin(startAngle) * circle.getRadius())), end(circle.getCenter() + Vector(cos(startAngle + arcRadians) * circle.getRadius(), sin(startAngle + arcRadians) * circle.getRadius())) { }
+Arc::Arc(Circle circle, double startAngle, double arcRadians) : circle(circle), startAngle(startAngle), endAngle(startAngle + arcRadians), arcRadians(arcRadians), arcLength(arcRadians * circle.getRadius()), start(circle.getCenter() + Vector(cos(startAngle) * circle.getRadius(), sin(startAngle) * circle.getRadius())), end(circle.getCenter() + Vector(cos(startAngle + arcRadians) * circle.getRadius(), sin(startAngle + arcRadians) * circle.getRadius())), positiveDir(arcRadians >= 0) { }
 
 Arc::~Arc() { }
 
@@ -49,6 +49,18 @@ double Arc::getArcRadians() const {
 
 double Arc::getArcLength() const {
     return arcLength;
+}
+
+bool Arc::isPositiveDirection() const {
+    return positiveDir;
+}
+
+double Arc::convertToRadians(double distance) const {
+    return circle.convertToRadians(distance);
+}
+
+double Arc::convertToDistance(double radians) const {
+    return circle.convertToDistance(radians);
 }
 
 bool Arc::angleInArc(double angle) const {

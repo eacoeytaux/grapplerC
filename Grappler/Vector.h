@@ -14,7 +14,7 @@
 
 class Vector {
 public:
-    Vector(double dx, double dy, const Coordinate * origin = nullptr);
+    Vector(double dx, double dy, const Coordinate * origin = new Coordinate(0, 0));
     Vector(Coordinate coor1, Coordinate coor2);
     Vector(Line line);
     virtual ~Vector();
@@ -27,13 +27,14 @@ public:
     bool isDyPositive();
     void setDxDy(double dx, double dy);
     void setDxDy(Vector vec);
-    bool getOrigin(Coordinate * coor) const;
+    Coordinate getOrigin() const;
     void setOrigin(Coordinate * coor);
-    bool getDestination(Coordinate * coor) const;
+    Coordinate getDestination() const;
     bool setDestination(Coordinate destination);
     double getMagnitude() const;
     
-    void setAngle(double angle);
+    double getAngle() const;
+    void rotateToAngle(double angle);
     void rotate(double angle);
     void flip();
     void flipHorizontal();
@@ -64,8 +65,8 @@ private:
     bool dxPositive, dyPositive;
     const Coordinate * origin;
     
-    mutable double magnitude;
-    mutable bool magnitudeSet;
+    mutable double magnitude, angle;
+    mutable bool magnitudeSet, angleSet;
 };
 
 //these are declared here because declaring them inside Coordinate.h requires including Vector.h which causes circular inclusion

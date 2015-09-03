@@ -52,7 +52,11 @@ public:
     }
     
     std::string toString() const {
-        return "Coor(" + std::to_string((int)x) + "," + std::to_string((int)y) + ")";
+        return "Coor(" + std::to_string(x) + "," + std::to_string(y) + ")";
+    }
+    
+    bool operator==(const Coordinate & coor) const {
+        return (x == coor.x) && (y == coor.y);
     }
     
 private:

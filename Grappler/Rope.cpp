@@ -10,9 +10,8 @@
 
 #include "Camera.h"
 #include "Circle.h"
+#include "Map.h"
 #include "Player.h"
-
-#include "Arc.h" //TODO remove
 
 const double Rope::k = 1;
 
@@ -87,7 +86,8 @@ void Rope::draw(Camera * camera, const Color * color) const {
         //tension.draw(*origin, camera, constants::white);
     }
     
-    camera->drawCircle(Circle(*root, length), constants::white->changeAlpha(64));
+    if (Map::showBumpers)
+        camera->drawCircle(Circle(*root, length), constants::white->changeAlpha(64));
 }
 
 void Rope::drawParabola(Camera * camera, const Color * color) const {

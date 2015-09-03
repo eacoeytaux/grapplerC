@@ -221,7 +221,7 @@ int main(int argc, const char * argv[]) {
                         }
                             
                         case SDLK_b: {
-                            Map::flipShowBumpers();
+                            Map::showBumpers = !Map::showBumpers;
                             break;
                         }
                             

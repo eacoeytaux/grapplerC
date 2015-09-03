@@ -23,6 +23,16 @@ MapVertex::~MapVertex() {
     node = nullptr;
 }
 
+/*void MapVertex::calculateBumper() {
+    if ((edgeCW == nullptr) || (edgeCCW == nullptr)) {
+        bumper = Arc(circle, 0, (M_PI_2));
+    } else {
+        double startAngle = edgeCW->getNormalForceAngle();
+        double endAngle = edgeCCW->getNormalForceAngle();
+        bumper = Arc(circle, endAngle, constants::findAngleDifference(endAngle, startAngle));
+    }
+}*/
+
 Coordinate MapVertex::getCoordinate() const {
     return coor;
 }
@@ -36,7 +46,7 @@ void MapVertex::setEdgeCW(MapEdge * edge) {
 }
 
 const MapEdge * MapVertex::getEdgeCCW() const {
-    return edgeCW;
+    return edgeCCW;
 }
 
 void MapVertex::setEdgeCCW(MapEdge * edge) {
@@ -56,11 +66,20 @@ double MapVertex::getNormalForceAngle() const {
 }
 
 bool MapVertex::adjustVelocity(Vector * vel) const {
-    return true;
+    double angleToOrigin = constants::findAngle(coor, vel->getOrigin());
+    
+    if (vel->subtractAngle(constants::findAngle(coor, vel->getOrigin()))) { //(constants::findAngleDifference(vel->getAngle(), constants::findAngle(coor, vel->getOrigin())) >= M_PI_2)
+        Arc arc(bumper, angleToOrigin, bumper.convertToRadians(vel->getMagnitude()) * ((constants::findAngleDifference(angleToOrigin, constants::findAngle(coor, vel->getDestination())) < 0) ? -1 : 1));
+        vel->setDestination(arc.getEnd());
+        
+        return true;
+    } else {
+        return false;
+    }
 }
 
 void MapVertex::draw(Camera * camera, bool drawBumper) const {
-    camera->drawRectangle(coor.getX(), coor.getY(), 5, 5, constants::yellow);
+    camera->drawRectangle(coor.getX(), coor.getY(), 3, 3, constants::yellow);
     if (drawBumper)
         camera->drawCircle(bumper, (touchingPlayer ? constants::white : constants::cyan));
 }

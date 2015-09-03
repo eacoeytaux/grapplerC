@@ -23,7 +23,10 @@ public:
     double getEndAngle() const;
     double getArcRadians() const;
     double getArcLength() const;
+    bool isPositiveDirection() const;
     
+    double convertToRadians(double distance) const;
+    double convertToDistance(double radians) const;
     bool angleInArc(double angle) const;
     bool inArc(Coordinate coor) const;
     bool inArc(double x, double y) const;
@@ -37,6 +40,7 @@ private:
     Coordinate start;
     Coordinate end;
     double startAngle, endAngle, arcRadians, arcLength;
+    bool positiveDir;
 };
 
 #endif /* defined(__Grappler__Arc__) */

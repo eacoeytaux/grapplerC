@@ -27,8 +27,7 @@ namespace constants {
     
     /* declare drag coefficients */
     const float airResistance = 0.99;
-    const float frictionNorm = 0.75;
-    const float rotationFrictionNorm = 0.95;
+    const float frictionNorm = 0.98;
     
     /* declare force vectors */
     const static Vector gravity(0, 0.25);
@@ -66,7 +65,7 @@ namespace constants {
         return findAngle(coor1.getX(), coor1.getY(), coor2.getX(), coor2.getY());
     }
     
-    static double findAngleDifference(double angle1, double angle2) {
+    static double findAngleDifference(double angle1, double angle2) { //TODO TODO TODO this may cause an error in distance is > M_PI
         if ((angle1 > 0) ^ (angle2 > 0)) {
             double angleDifference = fabs(angle1) + fabs(angle2);
             if (angleDifference > M_PI)

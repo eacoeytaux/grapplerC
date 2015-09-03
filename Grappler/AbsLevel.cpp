@@ -61,11 +61,10 @@ void AbsLevel::draw(Camera * camera) {
 void AbsLevel::generatePath(Player * player) {
     Path path(player->getCenter());
     
-    //Hitbox hitbox = object->hitbox;
     Coordinate center = player->getCenter();
     Vector vel = player->getVelocity();
     vel.setOrigin(&center);
-    MapElement * element = player->getElement();
+    MapElement * element = player->getElement(), * prevElement = nullptr;
     
     const Rope * rope = player->getRope();
     bool taught = rope->isTaught();
@@ -83,18 +82,14 @@ void AbsLevel::generatePath(Player * player) {
         }
         
         if (player->isGrappling()) {
-            
             if (taught) {
                 if (vel.subtractAngle(constants::findAngle(rope->getOrigin(), rope->getRoot()))) {
                     if (velAdjusted) {
                         vel.setDxDy(0, 0);
                     } else {
-                        Coordinate velOrigin(0, 0);
-                        vel.getOrigin(&velOrigin);
+                        Arc arc(Circle(rope->getRoot(), rope->getLength()), constants::findAngle(rope->getRoot(), vel.getOrigin()), (vel.getMagnitude() / rope->getLength()) * ((constants::findAngleDifference(atan2(vel.getDy(), vel.getDx()), constants::findAngle(rope->getRoot(), rope->getOrigin())) > 0) ? -1 : 1));
                         
-                        Arc arc(Circle(rope->getRoot(), rope->getLength()), constants::findAngle(rope->getRoot(), velOrigin), (vel.getMagnitude() / rope->getLength()) * ((constants::findAngleDifference(atan2(vel.getDy(), vel.getDx()), constants::findAngle(rope->getRoot(), rope->getOrigin())) > 0) ? -1 : 1));
-                        
-                        //if ((element != nullptr) && (fabs(constants::findAngleDifference(constants::findAngle(arc.getStart(), arc.getEnd()), element->getNormalForceAngle())) >= M_PI_2));
+                        //if ((element != nullptr) && (fabs(constants::findAngleDifference(constants::findAngle(arc.getStart(), arc.getEnd()), element->getNormalForceAngle())) >= M_PI_2));vel
                         vel.setDestination(arc.getEnd());
                         
                         /*Coordinate velDestination(0, 0);
@@ -148,22 +143,22 @@ void AbsLevel::generatePath(Player * player) {
         Vector nextVel = adjustedVel;
         MapElement * nextElement = element;
         
-        double distance = INFINITY;
+        double tempDistance, distance = INFINITY;
         
         bool nextTaught = taught;
         
         if (player->isGrappling() && !taught) {
             Coordinate collision = center;
             Line adjustedVelLine = adjustedVel.toLine(center);
-            
             if (Circle(rope->getRoot(), rope->getLength()).doesIntersect(adjustedVelLine, &collision)) {
                 Vector collisionVel(center, collision);
-                if (collisionVel.getMagnitude() < distance) {
+                tempDistance = collisionVel.getMagnitude();
+                if (tempDistance < distance) {
                     nextCenter = collision;
                     nextVel = collisionVel;
-                    
-                    distance = collisionVel.getMagnitude();
                     nextTaught = true;
+                    
+                    distance = tempDistance;
                 }
             }
         }
@@ -175,39 +170,58 @@ void AbsLevel::generatePath(Player * player) {
             Coordinate collision = center;
             Line adjustedVelLine = adjustedVel.toLine(center);
             
-            if (!(element == (MapElement*)vertex)) {
+            if ((element != (MapElement*)vertex) && (((MapElement*)vertex != prevElement) || (prevElement == nullptr))) {
                 if (vertex->getBumper().doesIntersect(adjustedVelLine, &collision)) {
                     Vector collisionVel(center, collision);
-                    if (collisionVel.getMagnitude() < distance) {
+                    tempDistance = collisionVel.getMagnitude();
+                    if (tempDistance < distance) {
                         nextCenter = collision;
                         nextVel = collisionVel;
                         nextElement = (MapElement*)vertex;
-                        
-                        distance = collisionVel.getMagnitude();
                         nextTaught = taught;
+                        
+                        distance = tempDistance;
                     }
                 }
-            }/* else {
-              if (adjustedVelLine.doesIntersect(edge->getCatchCW(), &collision)) {
-              Vector collisionVel(center, collision);
-              if (collisionVel.getMagnitude() < distance) {
-              nextCenter = collision;
-              nextVel = collisionVel;
-              nextElement = (MapElement*)edge->getVertexCW();
-              
-              distance = collisionVel.getMagnitude();
-              }
-              } else if (adjustedVelLine.doesIntersect(edge->getCatchCCW(), &collision)) {
-              Vector collisionVel(center, collision);
-              if (collisionVel.getMagnitude() < distance) {
-              nextCenter = collision;
-              nextVel = collisionVel;
-              nextElement = (MapElement*)edge->getVertexCCW();
-              
-              distance = collisionVel.getMagnitude();
-              }
-              }
-              }*/
+            } else {
+                double angleToOrigin = constants::findAngle(vertex->getCoordinate(), adjustedVel.getOrigin());
+                double angleToDestination = constants::findAngle(vertex->getCoordinate(), adjustedVel.getDestination());
+                double angleDifference = constants::findAngleDifference(angleToOrigin, angleToDestination);
+                
+                if (angleDifference > constants::findAngleDifference(angleToOrigin, vertex->getEdgeCW()->getNormalForceAngle())) {
+                    tempDistance = vertex->getBumper().convertToDistance(constants::findAngleDifference(angleToDestination, vertex->getEdgeCW()->getNormalForceAngle()));
+                    if (tempDistance < distance) {
+                        double angle = vertex->getEdgeCW()->getNormalForceAngle();
+                        nextCenter = vertex->getCoordinate() + Vector(cos(angle) * Player::trueRadius, sin(angle) * Player::trueRadius);
+                        nextVel = Vector(adjustedVel.getOrigin(), nextCenter);
+                        nextElement = (MapElement*)vertex->getEdgeCW();
+                        
+                        distance = tempDistance;
+                        nextTaught = taught;
+                        
+                        if (nextVel.getMagnitude() == 0) {
+                            int x = 5;
+                            x++;
+                        }
+                    }
+                } else if (angleDifference < constants::findAngleDifference(angleToOrigin, vertex->getEdgeCCW()->getNormalForceAngle())) {
+                    tempDistance = vertex->getBumper().convertToDistance(constants::findAngleDifference(angleToDestination, vertex->getEdgeCCW()->getNormalForceAngle()));
+                    if (tempDistance < distance) {
+                        double angle = vertex->getEdgeCCW()->getNormalForceAngle();
+                        nextCenter = vertex->getCoordinate() + Vector(cos(angle) * Player::trueRadius, sin(angle) * Player::trueRadius);
+                        nextVel = Vector(adjustedVel.getOrigin(), nextCenter);
+                        nextElement = (MapElement*)vertex->getEdgeCCW();
+                        
+                        distance = tempDistance;
+                        nextTaught = taught;
+                        
+                        if (nextVel.getMagnitude() == 0) {
+                            int x = 5;
+                            x++;
+                        }
+                    }
+                }
+            }
         }
         
         //check all edges for collision
@@ -217,38 +231,56 @@ void AbsLevel::generatePath(Player * player) {
             Coordinate collision = center;
             Line adjustedVelLine = adjustedVel.toLine(center);
             
-            if (!(element == (MapElement*)edge)) {
+            if ((element != (MapElement*)edge) && (((MapElement*)edge != prevElement) || (prevElement == nullptr))) {
                 if (edge->getBumper().doesIntersect(adjustedVelLine, &collision)) {
                     Vector collisionVel(center, collision);
-                    if (collisionVel.getMagnitude() < distance) {
+                    tempDistance = collisionVel.getMagnitude();
+                    if (tempDistance < distance) {
                         nextCenter = collision;
                         nextVel = collisionVel;
                         nextElement = (MapElement*)edge;
-                        
-                        distance = collisionVel.getMagnitude();
                         nextTaught = taught;
+                        
+                        distance = tempDistance;
+                    }
+                    
+                    if (nextVel.getMagnitude() == 0) {
+                        int x = 5;
+                        x++;
                     }
                 }
             } else {
                 if (edge->getCatchCW().doesIntersect(adjustedVelLine, &collision)) {
                     Vector collisionVel(center, collision);
-                    if (collisionVel.getMagnitude() < distance) {
+                    tempDistance = collisionVel.getMagnitude();
+                    if (tempDistance < distance) {
                         nextCenter = collision;
                         nextVel = collisionVel;
                         nextElement = (MapElement*)edge->getVertexCW();
-                        
-                        distance = collisionVel.getMagnitude();
                         nextTaught = taught;
+                        
+                        distance = tempDistance;
+                        
+                        if (nextVel.getMagnitude() == 0) {
+                            int x = 5;
+                            x++;
+                        }
                     }
                 } else if (edge->getCatchCCW().doesIntersect(adjustedVelLine, &collision)) {
                     Vector collisionVel(center, collision);
-                    if (collisionVel.getMagnitude() < distance) {
+                    tempDistance = collisionVel.getMagnitude();
+                    if (tempDistance < distance) {
                         nextCenter = collision;
                         nextVel = collisionVel;
                         nextElement = (MapElement*)edge->getVertexCCW();
-                        
-                        distance = collisionVel.getMagnitude();
                         nextTaught = taught;
+                        
+                        distance = tempDistance;
+                        
+                        if (nextVel.getMagnitude() == 0) {
+                            int x = 5;
+                            x++;
+                        }
                     }
                 }
             }
@@ -268,21 +300,34 @@ void AbsLevel::generatePath(Player * player) {
         
         //finished checking collisions
         
-        float percentageUsed = nextVel.getMagnitude() / adjustedVel.getMagnitude();
-        
-        float prevPercentage = percentage;
-        percentage *= (1 - percentageUsed);
-        if (percentage == prevPercentage)
+        if (distance < INFINITY) {
+            float percentageUsed = distance / adjustedVel.getMagnitude();
+            
+            float prevPercentage = percentage;
+            percentage *= (1.f - percentageUsed);
+            if (percentage == prevPercentage) {
+                printf("AbsLevel Warning: percentage did not progess\n");
+                percentage = 0; //TODO this shouldn't need to happen
+            }
+        } else {
             percentage = 0;
+        }
         //printf("percentage: %f\n", percentage);
         
         center = nextCenter;
         //vel = nextVel; //TODO is this required? cause it creates an issue where the adjustedVel length is used in adjusted the velocity
-        element = nextElement;
+        if (element != nextElement) {
+            printf("switching elements: %f\n", vel.getMagnitude());
+            prevElement = element;
+            element = nextElement;
+        }
         taught = nextTaught;
         
         path.addVector(nextVel);
+        
+        printf(".");
     }
+    printf("\n");
     
     /*hitbox.setCenter(path.getEndPoint());
      object->hitbox = hitbox;*/

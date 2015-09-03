@@ -25,6 +25,8 @@ public:
     double getRadius() const;
     double getCircumference() const;
     
+    double convertToRadians(double distance) const;
+    double convertToDistance(double radians) const;
     bool inCircle(double x, double y) const;
     bool inCircle(Coordinate coor) const;
     bool doesIntersect(Circle otherCircle, Coordinate * intersectionCoor1 = nullptr, Coordinate * intersectionCoor2 = nullptr) const;

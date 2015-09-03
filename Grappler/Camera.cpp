@@ -117,7 +117,7 @@ void Camera::drawArc(Arc arc, const Color * color) {
     
     double startAngle = arc.getStartAngle();
     double dRadians = arc.getArcRadians() / percision;
-    if (arc.getArcRadians() < 0)
+    if (arc.isPositiveDirection())
         dRadians *= -1;
     double radius = arc.getCircle().getRadius();
     

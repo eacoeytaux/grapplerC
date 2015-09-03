@@ -87,7 +87,3 @@ MapEdge * Map::createEdge(MapVertex * vertexCW, MapVertex * vertexCCW, bool floo
     
     return edge;
 }
-
-void Map::flipShowBumpers() {
-    showBumpers = !showBumpers;
-}

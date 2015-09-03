@@ -174,6 +174,8 @@ bool Player::update(AbsLevel * level) {
     while (angle < -M_PI)
         angle += M_PI;
     
+    vel *= ((element != nullptr) ? constants::frictionNorm : constants::airResistance);
+    
     //vel.setDx(vel.getDx() * constants::frictionNorm);
     //vel.setDy(vel.getDy() * (hitbox.touchesFloor() ? constants::frictionNorm : constants::airResistance));
     
@@ -189,8 +191,8 @@ void Player::draw(Camera * camera) {
     camera->drawLine(center - Vector(-sinAngle, cosAngle), center + Vector(-sinAngle, cosAngle));
     //camera->drawLine(center - Vector(sinAngle, cosAngle), center + Vector(sinAngle, cosAngle));
     
-    vel.draw(camera, constants::yellow, 5);
-    force.draw(camera, constants::red, 50);
+    //vel.draw(camera, constants::yellow, 5);
+    //force.draw(camera, constants::red, 50);
     
     if (grappling)
         rope.draw(camera, constants::white);

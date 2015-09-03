@@ -29,6 +29,14 @@ double Circle::getCircumference() const {
     return radius * M_PI * 2;
 }
 
+double Circle::convertToRadians(double distance) const {
+    return fabs(distance / radius);
+}
+
+double Circle::convertToDistance(double radians) const {
+    return fabs(radians * radius);
+}
+
 bool Circle::inCircle(double x, double y) const {
     return (constants::findDistance(center.getX(), center.getY(), x, y) <= radius);
 }

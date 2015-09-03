@@ -22,6 +22,8 @@ class Map {
     friend class AbsLevel;
     
 public:
+    static bool showBumpers;
+    
     Map();
     virtual ~Map();
     
@@ -33,11 +35,7 @@ public:
     void drawBackground(Camera * camera);
     void drawForeground(Camera * camera);
     
-    static void flipShowBumpers();
-    
 private:
-    static bool showBumpers;
-    
     SortedCollection<MapVertex> vertices;
     SortedCollection<MapEdge> edges;
     int largestEdgeDx = 0;
