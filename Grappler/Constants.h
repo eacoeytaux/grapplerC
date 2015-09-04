@@ -9,6 +9,7 @@
 #ifndef Climber_Constants_h
 #define Climber_Constants_h
 
+#include <stdlib.h>
 #include <math.h>
 
 #include "Color.h"
@@ -75,6 +76,14 @@ namespace constants {
         } else {
             return angle2 - angle1;
         }
+    }
+    
+    static int getRand(int lowerBound, int upperBound) {
+        return lowerBound + (rand() % (upperBound - lowerBound));
+    }
+    
+    static bool getRandBool() {
+        return (rand() % 2) == 0;
     }
 #pragma GCC diagnostic warning "-Wunused"
     

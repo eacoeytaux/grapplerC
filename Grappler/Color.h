@@ -34,6 +34,30 @@ public:
         return RGBA[index];
     }
     
+    void setRGBA(int value, int index) {
+        if ((index < 0) || (index > 3)) {
+            printf("Color Error: RGBA index out of bounds\n");
+            return;
+        } else if ((value < 0) || (value > 255)) {
+            printf("Color Error: value out of bounds\n");
+            return;
+        }
+        
+        RGBA[index] = value;
+    }
+    
+    void addToRGBA(int value, int index) {
+        if ((index < 0) || (index > 3)) {
+            printf("Color Error: RGBA index out of bounds\n");
+            return;
+        } else if ((value < -RGBA[index]) || (value > (255 - RGBA[index]))) {
+            printf("Color Error: value out of bounds\n");
+            return;
+        }
+        
+        RGBA[index] += value;
+    }
+    
     Color * changeAlpha(int A) const {
         return new Color(RGBA[0], RGBA[1], RGBA[2], A);
     }

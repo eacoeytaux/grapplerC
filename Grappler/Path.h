@@ -11,6 +11,9 @@
 
 #include "LinkedList.h"
 
+#include "Constants.h"
+#include "Camera.h"
+
 class Path {
 public:
     Path(Coordinate origin) : endPoint(origin), path() {
@@ -38,6 +41,14 @@ public:
     
     Coordinate getEndPoint() {
         return endPoint;
+    }
+    
+    void draw(Camera * camera, const Color * color = nullptr) {
+        LinkedList<Coordinate>::Node * prevNode = path.getHeadNode();
+        for (LinkedList<Coordinate>::Node * node = prevNode->next; node != nullptr; node = node->next) {
+            camera->drawLine(prevNode->element, node->element, color);
+            prevNode = node;
+        }
     }
     
 private:

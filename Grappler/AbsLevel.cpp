@@ -8,6 +8,7 @@
 
 #include "AbsLevel.h"
 
+#include "Constants.h"
 #include "Camera.h"
 #include "Line.h"
 #include "Circle.h"
@@ -15,7 +16,7 @@
 #include "MapVertex.h"
 #include "MapEdge.h"
 
-AbsLevel::AbsLevel(SDL_Renderer * renderer) : map(), player(Coordinate(600, 50)) {
+AbsLevel::AbsLevel(SDL_Renderer * renderer) : map(), player(Coordinate(600, 50)), bolt(Coordinate(constants::getRand(120, 840), 0)) {
     loadResources();
 }
 
@@ -35,10 +36,18 @@ void AbsLevel::update(Coordinate mouseCoor, float dt) { //TODO remove dt?
      for (SortedCollection<MapEdge>::Node * traversalNode = map.edges.getHeadNode(); traversalNode != nullptr; traversalNode = traversalNode->next) {
      traversalNode->element->setTouchingPlayer(false);//player.touchesElement(traversalNode->element));
      }*/
+    
+    if (constants::getRand(0, 300) == 0)
+        bolt = Bolt(Coordinate(constants::getRand(120, 840), 0));
+    bolt.update();
 }
 
 void AbsLevel::draw(Camera * camera) {
     map.drawBackground(camera);
+    
+    
+    bolt.draw(camera, constants::white->changeAlpha(192));
+    
     map.drawElements(camera);
     
     //draw entities

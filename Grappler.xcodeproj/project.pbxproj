@@ -24,6 +24,7 @@
 		0C224CDE1B8A32540078019B /* Vector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C224CCA1B8A32540078019B /* Vector.cpp */; };
 		0C224CE21B8A49AF0078019B /* Circle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C224CE01B8A49AF0078019B /* Circle.cpp */; };
 		0C224CE41B8A8BB90078019B /* MapElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C224CE31B8A8BB90078019B /* MapElement.cpp */; };
+		0C7B57611B994CFA00E6A783 /* Bolt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C7B575F1B994CFA00E6A783 /* Bolt.cpp */; };
 		0CF409ED1B917CB500683542 /* Arc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CF409EB1B917CB400683542 /* Arc.cpp */; };
 /* End PBXBuildFile section */
 
@@ -78,6 +79,8 @@
 		0C224CE01B8A49AF0078019B /* Circle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Circle.cpp; sourceTree = "<group>"; };
 		0C224CE11B8A49AF0078019B /* Circle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Circle.h; sourceTree = "<group>"; };
 		0C224CE31B8A8BB90078019B /* MapElement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MapElement.cpp; sourceTree = "<group>"; };
+		0C7B575F1B994CFA00E6A783 /* Bolt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Bolt.cpp; sourceTree = "<group>"; };
+		0C7B57601B994CFA00E6A783 /* Bolt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bolt.h; sourceTree = "<group>"; };
 		0CF409EB1B917CB400683542 /* Arc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Arc.cpp; sourceTree = "<group>"; };
 		0CF409EC1B917CB400683542 /* Arc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Arc.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -124,6 +127,8 @@
 				0C224CA71B8A32540078019B /* Animation.h */,
 				0CF409EB1B917CB400683542 /* Arc.cpp */,
 				0CF409EC1B917CB400683542 /* Arc.h */,
+				0C7B575F1B994CFA00E6A783 /* Bolt.cpp */,
+				0C7B57601B994CFA00E6A783 /* Bolt.h */,
 				0C224CAA1B8A32540078019B /* Camera.cpp */,
 				0C224CAB1B8A32540078019B /* Camera.h */,
 				0C224CE01B8A49AF0078019B /* Circle.cpp */,
@@ -218,6 +223,7 @@
 				0C224CDE1B8A32540078019B /* Vector.cpp in Sources */,
 				0C224CE21B8A49AF0078019B /* Circle.cpp in Sources */,
 				0C224CCF1B8A32540078019B /* Animation.cpp in Sources */,
+				0C7B57611B994CFA00E6A783 /* Bolt.cpp in Sources */,
 				0C224CDD1B8A32540078019B /* SpriteSheet.cpp in Sources */,
 				0C224CD61B8A32540078019B /* Map.cpp in Sources */,
 				0C224CE41B8A8BB90078019B /* MapElement.cpp in Sources */,

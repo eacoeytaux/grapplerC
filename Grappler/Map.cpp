@@ -15,7 +15,7 @@
 #include "MapEdge.h"
 #include "Player.h"
 
-bool Map::showBumpers = true;
+bool Map::showBumpers = false;
 
 Map::Map() : vertices(), edges() {
     loadElements();

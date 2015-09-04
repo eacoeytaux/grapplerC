@@ -14,6 +14,8 @@
 #include "Map.h"
 #include "Player.h"
 
+#include "Bolt.h" //TODO remove
+
 class SDL_Renderer;
 
 class MapObject;
@@ -49,6 +51,8 @@ private:
     //for debugging
     double lowerBound = 0;
     double upperBound = 0;
+    
+    Bolt bolt;
 };
 
 #endif /* defined(__Climber__AbsLevel__) */
